@@ -4,7 +4,7 @@ import com.bds.cp.annotations.ExecutableCommand;
 import com.bds.cp.bean.Command;
 import com.bds.cp.executors.Executor;
 
-@ExecutableCommand
+@ExecutableCommand(commandDescription = "", commandParams = {"",""}, commandParamsDescription = {"",""})
 public class GenCombinations implements Executor {
 
 	public void execute(Command command) {

@@ -15,7 +15,7 @@ import com.bds.cp.executors.Executor;
  * @author tripvi
  *
  */
-@ExecutableCommand
+@ExecutableCommand(commandDescription = "", commandParams = {"",""}, commandParamsDescription = {"",""})
 public class TetsCommand implements Executor {
 
 	/* (non-Javadoc)

@@ -11,7 +11,7 @@ import com.bds.cp.pi.LEDController;
  * Created by sonu on 11/12/16.
  */
 
-@ExecutableCommand
+@ExecutableCommand(commandDescription = "Blinks the LED connect Raspberry PI's GPIO pin 7", commandParams = {"0",""}, commandParamsDescription = {"Number of time the led is to be blinked",""})
 public class BlinkLed implements Executor {
     public void execute(Command command) {
         int count;

@@ -9,5 +9,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface ExecutableCommand {
-
-}
+    String commandDescription();
+    String[] commandParams();
+    String[] commandParamsDescription();
+};

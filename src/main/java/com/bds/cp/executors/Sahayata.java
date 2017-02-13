@@ -11,7 +11,7 @@ import com.bds.cp.bean.Command;
  *
  */
 
-@ExecutableCommand
+@ExecutableCommand(commandDescription = "Gives information about an available commans.", commandParams = {"cmd"}, commandParamsDescription = {"The name of the command for the information is required"})
 public class Sahayata implements Executor {
 
 	public void execute(Command command) {

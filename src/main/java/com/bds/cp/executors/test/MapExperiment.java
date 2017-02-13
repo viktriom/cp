@@ -17,7 +17,7 @@ import com.bds.cp.executors.Executor;
  * @author Vivek Tripathi
  *
  */
-@ExecutableCommand
+@ExecutableCommand(commandDescription = "", commandParams = {"",""}, commandParamsDescription = {"",""})
 public class MapExperiment implements Executor {
 
 

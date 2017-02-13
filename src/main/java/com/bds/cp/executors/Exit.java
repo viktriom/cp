@@ -4,7 +4,7 @@ import com.bds.cp.annotations.ExecutableCommand;
 import com.bds.cp.bean.Command;
 
 
-@ExecutableCommand
+@ExecutableCommand(commandDescription = "", commandParams = {"",""}, commandParamsDescription = {"",""})
 public class Exit implements Executor{
 	
 	

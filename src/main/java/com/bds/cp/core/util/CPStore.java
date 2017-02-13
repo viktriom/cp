@@ -28,6 +28,8 @@ public class CPStore {
 
 	public static Executor getCommandFromCommandStore(String fullCommandName){
 		CommandBean cmdBean = commandStore.get(fullCommandName);
+		if(null == cmdBean)
+			return null;
 		cmdBean.setLastAccessTime(System.currentTimeMillis());
 		Executor executor = cmdBean.getExecutor();
 		return executor;

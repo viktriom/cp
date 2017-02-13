@@ -11,7 +11,7 @@ import com.bds.cp.core.constants.CPConstants;
  * @author tripvi
  *
  */
-@ExecutableCommand
+@ExecutableCommand(commandDescription = "Sets the context from which the command is to be executed.", commandParams = {"index 0"}, commandParamsDescription = {"The new comand context"})
 public class SetContext implements Executor {
 
 	/* (non-Javadoc)

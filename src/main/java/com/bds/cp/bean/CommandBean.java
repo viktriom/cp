@@ -22,7 +22,7 @@ public class CommandBean {
 		this.executor = executor;
 		this.lastAccessTime = lastAccessTime;
 	}
-	
+
 	public Executor getExecutor() {
 		return executor;
 	}

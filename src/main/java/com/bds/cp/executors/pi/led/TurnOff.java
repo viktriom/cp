@@ -10,7 +10,7 @@ import com.bds.cp.pi.LEDController;
 /**
  * Created by sonu on 10/12/16.
  */
-@ExecutableCommand
+@ExecutableCommand(commandDescription = "Turns the LED OFF connected to Raspberry PI's GPIO pin 7", commandParams = {""}, commandParamsDescription = {""})
 public class TurnOff implements Executor{
 
     public void execute(Command command) {
