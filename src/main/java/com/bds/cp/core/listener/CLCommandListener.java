@@ -31,9 +31,6 @@ public class CLCommandListener implements Runnable{
 	public void run(){
 		System.out.println("Listening..");
 		String className="";
-        String[] cmdParts;
-        Command cmd = null;
-        String tempAppCtx;
 
 
 		while(true){
