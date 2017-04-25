@@ -10,6 +10,10 @@ import org.apache.log4j.Logger;
 
 import javax.persistence.PersistenceUtil;
 import java.lang.reflect.Method;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by sonu on 17/02/17.
@@ -34,5 +38,9 @@ public class WebUtil {
         }
         log.info("Completed the convertion of command into web page info.");
         return commandMetaData;
+    }
+
+    public static Set<String> getCommandList(){
+        return CPStore.getAvailableCommands();
     }
 }

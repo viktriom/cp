@@ -1,10 +1,8 @@
-/**
- * 
- */
 package com.bds.cp.core.util;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import com.bds.cp.executors.Executor;
 import com.bds.cp.bean.CommandBean;
@@ -35,7 +33,13 @@ public class CPStore {
 		return executor;
 	}
 
+	public static Set<String> getAvailableCommands(){
+		return commandStore.keySet();
+	}
+
+
 	public static void clearCommandStore() {
 		commandStore.clear();
 	}
+
 }
