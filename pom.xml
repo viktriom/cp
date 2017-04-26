@@ -139,6 +139,8 @@
                             <overWriteReleases>false</overWriteReleases>
                             <overWriteSnapshots>false</overWriteSnapshots>
                             <overWriteIfNewer>true</overWriteIfNewer>
+                    		<source>1.8</source>
+                    		<target>1.8</target>
                         </configuration>
                     </execution>
                 </executions>
