@@ -1,19 +1,16 @@
 package com.bds.cp.core.util.web;
 
 import com.bds.cp.annotations.ExecutableCommand;
-import com.bds.cp.bean.Command;
 import com.bds.cp.bean.CommandMetaData;
-import com.bds.cp.core.listener.CLCommandListener;
+import com.bds.cp.core.util.CPStartupUtil;
 import com.bds.cp.core.util.CPStore;
+import com.bds.cp.core.util.CPUtil;
 import com.bds.cp.executors.Executor;
-import org.apache.log4j.Logger;
 
-import javax.persistence.PersistenceUtil;
-import java.lang.reflect.Method;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
+
+import org.apache.log4j.Logger;
 
 /**
  * Created by sonu on 17/02/17.
@@ -21,26 +18,46 @@ import java.util.Set;
 public class WebUtil {
 
     private static Logger log = Logger.getLogger(WebUtil.class);
+    
+    public static void initializeCPSystem(){
+    	CPStartupUtil.loadCommands();
+        CPUtil.loadPropertiesFileIntoClass(CPUtil.getPathForString("cp.properties"), "CPConstants",true);
+    }
 
     public static CommandMetaData getCommandMetadata(String commandName){
-        log.info("Begining command parsing into web page info.");
+        log.info("Preparing Command metadata for command : ." + commandName);
         CommandMetaData commandMetaData = null;
         String commandDescription = "";
         String[] paramNames, paramNameDescription;
         Executor executor = CPStore.getCommandFromCommandStore(commandName);
-
-        if(executor.getClass().isAnnotationPresent(ExecutableCommand.class)){
-            ExecutableCommand executableCommand = (ExecutableCommand)executor.getClass().getAnnotation(ExecutableCommand.class);
+        
+        if(null != executor && executor.getClass().isAnnotationPresent(ExecutableCommand.class)){
+        	
+        	commandMetaData = new CommandMetaData();
+            
+        	ExecutableCommand executableCommand = (ExecutableCommand)executor.getClass().getAnnotation(ExecutableCommand.class);
+            
             commandDescription = executableCommand.commandDescription();
+            
+            commandMetaData.setCommandName(commandName);
+            commandMetaData.setCommandDescription(commandDescription);
+            
             paramNames = executableCommand.commandParams();
             paramNameDescription = executableCommand.commandParamsDescription();
-            commandMetaData = new CommandMetaData(commandName, commandDescription, paramNames, paramNameDescription);
+            
+            for(int i = 0;i <paramNames.length;i++){
+            	commandMetaData.addParamNameAndDescription(paramNames[i], paramNameDescription[i]);
+            }
         }
         log.info("Completed the convertion of command into web page info.");
         return commandMetaData;
     }
 
     public static Set<String> getCommandList(){
-        return CPStore.getAvailableCommands();
+    	Set<String> cmds = new LinkedHashSet<String>();
+    	for(String cmd : CPStore.getAvailableCommands()){
+    		cmds.add(cmd);
+    	}
+        return cmds;
     }
 }

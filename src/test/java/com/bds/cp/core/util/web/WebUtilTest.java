@@ -1,11 +1,8 @@
 package com.bds.cp.core.util.web;
 
-import com.bds.cp.annotations.ExecutableCommand;
 import com.bds.cp.bean.CommandMetaData;
 import com.bds.cp.core.util.CPStartupUtil;
-import com.bds.cp.core.util.CPStore;
 import com.bds.cp.core.util.CPUtil;
-import com.bds.cp.executors.Executor;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,14 +21,16 @@ public class WebUtilTest {
     @Test
     public void parseCommandIntoWebInfo() throws Exception {
         String commandName = "com.bds.cp.executors.SetContext";
-        Executor cmd = CPStore.getCommandFromCommandStore(commandName);
         CommandMetaData commandMetaData = WebUtil.getCommandMetadata(commandName);
         assertNotNull(commandMetaData);
         assertEquals(commandName, commandMetaData.getCommandName());
         assertNotNull(commandMetaData.getCommandDescription());
         assertEquals("Sets the context from which the command is to be executed.", commandMetaData.getCommandDescription());
-        assertNotNull(commandMetaData.getCommandParams());
-        assertNotNull(commandMetaData.getCommandParamDescriptions());
+        assertEquals(new Integer(1), commandMetaData.getParamCount());
+        assertNotNull(commandMetaData.getParamNames());
+        assertEquals("index 0", commandMetaData.getParamNameAtIndex(0));
+        assertNotNull(commandMetaData.getPraramDescriptions());
+        assertEquals("The new command context", commandMetaData.getParamDescriptionAtIndex(0));
     }
 
 }
