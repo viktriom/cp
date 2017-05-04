@@ -12,15 +12,18 @@ import static org.junit.Assert.*;
  * Created by sonu on 17/02/17.
  */
 public class WebUtilTest {
+	
+	String commandName = "";
+	
     @Before
     public void setUp() throws Exception {
         CPStartupUtil.loadCommands();
         CPUtil.loadPropertiesFileIntoClass(CPUtil.getPathForString("cp.properties"), "CPConstants",true);
+        commandName = "com.bds.cp.executors.SetContext";
     }
 
     @Test
     public void parseCommandIntoWebInfo() throws Exception {
-        String commandName = "com.bds.cp.executors.SetContext";
         CommandMetaData commandMetaData = WebUtil.getCommandMetadata(commandName);
         assertNotNull(commandMetaData);
         assertEquals(commandName, commandMetaData.getCommandName());
@@ -33,4 +36,11 @@ public class WebUtilTest {
         assertEquals("The new command context", commandMetaData.getParamDescriptionAtIndex(0));
     }
 
+    @Test
+    public void testHtmlConversion(){
+    	String htmlData = WebUtil.prepareHTMLForCommandMetadata(commandName);
+    	System.out.println(htmlData);
+    	assert(true);
+    }
+    
 }

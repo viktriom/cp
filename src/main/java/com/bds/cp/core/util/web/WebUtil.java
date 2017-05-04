@@ -49,8 +49,33 @@ public class WebUtil {
             	commandMetaData.addParamNameAndDescription(paramNames[i], paramNameDescription[i]);
             }
         }
-        log.info("Completed the convertion of command into web page info.");
+        log.info("Done collecting parameter metadata for command name : " + commandName);
         return commandMetaData;
+    }
+    
+    public static String prepareHTMLForCommandMetadata(String commandName){
+    	CommandMetaData cmdDetail = getCommandMetadata(commandName);
+    	if(!CPUtil.isCommandAvailable(commandName)) return "<div><p> "+ commandName + " command not found.</p></div>";
+    	StringBuilder sb = new StringBuilder();
+    	sb.append("<div>");
+    	sb.append("<p>");
+    	sb.append("<p>");
+    	sb.append("Command Name :: ");
+    	sb.append(commandName);
+    	sb.append("</p>");
+    	sb.append("<p>");
+    	sb.append(cmdDetail.getCommandDescription());
+    	sb.append("</p>");
+    	for(String paramName:cmdDetail.getParamNames()){
+    		String paramDesc = cmdDetail.getDescriptionForParam(paramName);
+    		sb.append("<p>");
+    		sb.append(paramDesc + " : ");
+    		sb.append("<input name='" + paramName + "' id='" + paramName + "'/>");
+    		sb.append("</p>");
+    	}
+    	sb.append("</p>");
+    	sb.append("</div>");
+    	return sb.toString();
     }
 
     public static Set<String> getCommandList(){

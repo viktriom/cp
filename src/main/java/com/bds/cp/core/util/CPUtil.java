@@ -321,5 +321,11 @@ public class CPUtil {
 			cmd = CPUtil.parseCommand(command);
 		e.execute(cmd);
 	}
+	
+	public static boolean isCommandAvailable(String commandName){
+		if(null == commandName || commandName.isEmpty()) return false;
+		if(!CPStore.getAvailableCommands().contains(commandName)) return false;
+		return true;
+	}
 
 }
