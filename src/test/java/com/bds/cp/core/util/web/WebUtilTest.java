@@ -43,4 +43,8 @@ public class WebUtilTest {
     	assert(true);
     }
     
+    public void testPrepareHTMLForCommandMetadata(){
+    	WebUtil.prepareHTMLForCommandMetadata(commandName);
+    }
+    
 }

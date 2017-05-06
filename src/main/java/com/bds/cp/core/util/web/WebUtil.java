@@ -46,6 +46,7 @@ public class WebUtil {
             paramNameDescription = executableCommand.commandParamsDescription();
             
             for(int i = 0;i <paramNames.length;i++){
+            	if(paramNames[i].isEmpty() || paramNames[i].length() <= 0) continue;
             	commandMetaData.addParamNameAndDescription(paramNames[i], paramNameDescription[i]);
             }
         }
@@ -67,6 +68,7 @@ public class WebUtil {
     	sb.append(cmdDetail.getCommandDescription());
     	sb.append("</p>");
     	for(String paramName:cmdDetail.getParamNames()){
+    		if(cmdDetail.getParamNames().isEmpty()) break;
     		String paramDesc = cmdDetail.getDescriptionForParam(paramName);
     		sb.append("<p>");
     		sb.append(paramDesc + " : ");

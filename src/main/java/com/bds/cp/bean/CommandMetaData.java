@@ -66,7 +66,7 @@ public class CommandMetaData {
     }
     
     public Set<String> getParamNames(){
-    	return paramMap.entrySet().stream().map(e -> e.getKey()).collect(Collectors.toSet());
+    	return paramMap.keySet();
     }
     
     public Set<String> getPraramDescriptions(){
