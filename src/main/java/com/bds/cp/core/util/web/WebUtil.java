@@ -67,12 +67,13 @@ public class WebUtil {
     	sb.append("<p>");
     	sb.append(cmdDetail.getCommandDescription());
     	sb.append("</p>");
+    	int i =0;
     	for(String paramName:cmdDetail.getParamNames()){
     		if(cmdDetail.getParamNames().isEmpty()) break;
     		String paramDesc = cmdDetail.getDescriptionForParam(paramName);
     		sb.append("<p>");
     		sb.append(paramDesc + " : ");
-    		sb.append("<input name='" + paramName + "' id='" + paramName + "'/>");
+    		sb.append("<input name='" + paramName + "' id='paramName" + i++ + "'/>");
     		sb.append("</p>");
     	}
     	sb.append("</p>");
