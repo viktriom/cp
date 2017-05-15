@@ -33,7 +33,7 @@ public class WebUtilTest {
         assertNotNull(commandMetaData.getParamNames());
         assertEquals("index 0", commandMetaData.getParamNameAtIndex(0));
         assertNotNull(commandMetaData.getPraramDescriptions());
-        assertEquals("The new command context", commandMetaData.getParamDescriptionAtIndex(0));
+        assertEquals("The new command context", commandMetaData.getCommandParamAtIndex(0).getParamDescription());
     }
 
     @Test

@@ -69,23 +69,4 @@ public class CPConstants {
 			CPConstants.networkListenerPort = Integer.parseInt(networkListenerPort);
 	}
 	
-	public static enum CommandParameterType{
-		FILE("File"),
-		STRING("String");
-		
-		String commandParamType;
-		
-		private CommandParameterType(String commandParamType){
-			this.commandParamType = commandParamType;
-		}
-		
-		public static CommandParameterType getCommandParameterType(String cmdParamType){
-			 for(CommandParameterType type : CommandParameterType.values()){
-				 if(type.name().equals(cmdParamType))
-					 return type;
-			 }
-			 throw new EnumConstantNotPresentException(CommandParameterType.class, cmdParamType);
-		}
-	}
-	
 }

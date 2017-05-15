@@ -12,7 +12,7 @@ public class CommandMetaData {
     private String commandName;
     private String commandDescription;
     
-    private Map<String, String> paramMap = new LinkedHashMap<String,String>();
+    private Map<String, CommandParameter> paramMap = new LinkedHashMap<String,CommandParameter>();
 
     public CommandMetaData() {
     }
@@ -33,11 +33,11 @@ public class CommandMetaData {
         this.commandDescription = commandDescription;
     }
 
-    public void addParamNameAndDescription(String attrib, String value){
+    public void addParamNameAndDescription(String attrib, CommandParameter value){
     	paramMap.put(attrib,value);
     }
     
-    public String getDescriptionForParam(String attribute){
+    public CommandParameter getDescriptionForParam(String attribute){
     	return paramMap.get(attribute);
     }
     
@@ -55,7 +55,7 @@ public class CommandMetaData {
     	return null;
     }
     
-    public String getParamDescriptionAtIndex(int index){
+    public CommandParameter getCommandParamAtIndex(int index){
     	if(index < 0 || index > paramMap.keySet().size())
     		return null;
     	for(String paramName: paramMap.keySet()){
@@ -69,7 +69,7 @@ public class CommandMetaData {
     	return paramMap.keySet();
     }
     
-    public Set<String> getPraramDescriptions(){
+    public Set<CommandParameter> getPraramDescriptions(){
     	return paramMap.entrySet().stream().map(e -> e.getValue()).collect(Collectors.toSet());
     }
 
@@ -78,7 +78,5 @@ public class CommandMetaData {
 		return "CommandMetaData [commandName=" + commandName + ", commandDescription=" + commandDescription
 				+ ", attributeMap=" + paramMap + "]";
 	}
-
-
     
 }
