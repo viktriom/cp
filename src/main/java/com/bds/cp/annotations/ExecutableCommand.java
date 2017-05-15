@@ -12,4 +12,5 @@ public @interface ExecutableCommand {
     String commandDescription();
     String[] commandParams();
     String[] commandParamsDescription();
+    String[] commandParameterType();
 };

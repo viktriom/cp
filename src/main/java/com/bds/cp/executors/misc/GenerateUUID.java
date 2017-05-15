@@ -6,7 +6,7 @@ import com.bds.cp.annotations.ExecutableCommand;
 import com.bds.cp.bean.Command;
 import com.bds.cp.executors.Executor;
 
-@ExecutableCommand(commandDescription = "", commandParams = {"",""}, commandParamsDescription = {"",""})
+@ExecutableCommand(commandDescription = "Generates Universal Identifier.", commandParams = {}, commandParamsDescription = {}, commandParameterType={})
 public class GenerateUUID implements Executor {
 
 	public void execute(Command command) {

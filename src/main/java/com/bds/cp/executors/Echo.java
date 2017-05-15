@@ -3,7 +3,7 @@ package com.bds.cp.executors;
 import com.bds.cp.annotations.ExecutableCommand;
 import com.bds.cp.bean.Command;
 
-@ExecutableCommand(commandDescription = "This is a test description.", commandParams = {"none"}, commandParamsDescription = {"note-test"})
+@ExecutableCommand(commandDescription = "", commandParams = {""}, commandParamsDescription = {""}, commandParameterType = {""})
 public class Echo implements Executor{
 
 	public Echo(){

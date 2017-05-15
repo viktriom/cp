@@ -9,7 +9,10 @@ import com.bds.cp.core.util.LogUtil;
 /**
  * Created by sonu on 21/04/17.
  */
-@ExecutableCommand(commandDescription = "Shows all the available commands that can be executed.", commandParams = {"none"}, commandParamsDescription = {"note-test"})
+@ExecutableCommand(commandDescription = "Shows all the available commands that can be executed.", 
+commandParams = {}, 
+commandParamsDescription = {},
+commandParameterType={})
 public class Cmd implements Executor{
 
     public void execute(Command command) {

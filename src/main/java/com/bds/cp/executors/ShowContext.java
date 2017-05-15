@@ -5,7 +5,10 @@ import com.bds.cp.bean.Command;
 import com.bds.cp.core.constants.CPConstants;
 
 
-@ExecutableCommand(commandDescription = "", commandParams = {"",""}, commandParamsDescription = {"",""})
+@ExecutableCommand(commandDescription = "Shows the current context from which the commands are being executed.", 
+commandParams = {}, 
+commandParamsDescription = {},
+commandParameterType = {})
 public class ShowContext implements Executor {
 
 	public void execute(Command command) {
