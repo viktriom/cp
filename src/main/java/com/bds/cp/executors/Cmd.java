@@ -15,8 +15,9 @@ commandParamsDescription = {},
 commandParameterType={})
 public class Cmd implements Executor{
 
-    public void execute(Command command) {
+    public String execute(Command command) {
         LogUtil.logger(this.getClass()).info("Following commands are available for executions.");
+        return null;
     }
 
     public Command commandProcessor(String stringCommand) {

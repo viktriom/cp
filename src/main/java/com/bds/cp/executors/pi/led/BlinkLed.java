@@ -15,7 +15,7 @@ import com.bds.cp.pi.LEDController;
 commandParams = {"0",""}, commandParamsDescription = {"Number of time the led is to be blinked","Time to wait for between consecutive Bliks"},
 commandParameterType={"String", "String"})
 public class BlinkLed implements Executor {
-    public void execute(Command command) {
+    public String execute(Command command) {
         int count;
         String ct = command.getArgumentForOption(0);
         if(CPUtil.isConvertibleToInt(ct) && ct.length() > 0)
@@ -32,6 +32,7 @@ public class BlinkLed implements Executor {
         LEDController ledController = LEDController.getLEDController();
         ledController.flashSOS(count, waitTime);
 
+        return null;
     }
 
     public Command commandProcessor(String stringCommand) {

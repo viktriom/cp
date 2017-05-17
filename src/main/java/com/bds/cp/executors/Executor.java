@@ -8,7 +8,7 @@ public interface Executor {
 	 * Define/Implement the behavior of the command here.
 	 * @param command : Instance of the Command object, use this to retrieve specifics regarding the command like arguments, options etc.
 	 */
-	public void execute(Command command);
+	public String execute(Command command);
 	
 	/**
 	 * Implement this method if a custom implementation of Command parsing mechanism is required.

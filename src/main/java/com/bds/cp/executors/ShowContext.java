@@ -11,8 +11,9 @@ commandParamsDescription = {},
 commandParameterType = {})
 public class ShowContext implements Executor {
 
-	public void execute(Command command) {
+	public String execute(Command command) {
 		System.out.println(CPConstants.getApplicationContext());
+		return CPConstants.getApplicationContext();
 	}
 
 	public Command commandProcessor(String stringCommand) {

@@ -3,15 +3,15 @@ package com.bds.cp.executors;
 import com.bds.cp.annotations.ExecutableCommand;
 import com.bds.cp.bean.Command;
 
-@ExecutableCommand(commandDescription = "", commandParams = {""}, commandParamsDescription = {""}, commandParameterType = {""})
+@ExecutableCommand(commandDescription = "Prints the given String.", 
+commandParams = {"Echo-"}, 
+commandParamsDescription = {"The String to be printed."}, 
+commandParameterType = {"String"})
 public class Echo implements Executor{
-
-	public Echo(){
-		
-	}
 	
-	public void execute(Command command){
+	public String execute(Command command){
 		System.out.println(command.getAllArgumentsAsString());
+		return command.getAllArgumentsAsString();
 	}
 
     public Command commandProcessor(String stringCommand) {

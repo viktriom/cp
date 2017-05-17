@@ -20,16 +20,16 @@ public class SetContext implements Executor {
 	/* (non-Javadoc)
 	 * @see com.gs.fw.automator.executors.Executor#execute(com.gs.fw.automator.bean.Command)
 	 */
-	public void execute(Command command) {
+	public String execute(Command command) {
 		String newApplicationContext = command.getArgumentForOption(0);
 		
 		if(newApplicationContext==null || newApplicationContext.length()<=0 || command.getArgumentsCount()<=0){
 			CPConstants.fallToDefaultApplicationContext();
-			return;
+			return CPConstants.getApplicationContext();
 		}
 		
 		CPConstants.setApplicationContext(newApplicationContext);
-
+		return CPConstants.getApplicationContext();
 	}
 
 	/* (non-Javadoc)

@@ -11,16 +11,11 @@ import com.bds.cp.bean.Command;
 		commandParameterType = {}
 )
 public class Exit implements Executor{
-	
-	
-	//the default constructor.
-	public Exit(){
 
-	}
-
-	public void execute(Command command){
+	public String execute(Command command){
 		System.out.println("Bye");
 		System.exit(0);
+		return "Bye";
 	}
 
     public Command commandProcessor(String stringCommand) {

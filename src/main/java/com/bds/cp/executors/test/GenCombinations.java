@@ -9,7 +9,7 @@ commandParams = {"The string whose possible combinations are to be generated"}, 
 commandParameterType={"String"})
 public class GenCombinations implements Executor {
 
-	public void execute(Command command) {
+	public String execute(Command command) {
 		String permutationString = command.getArgumentForOption(0);
 		char[] pChars = permutationString.toCharArray();
 		int totalChars = pChars.length;
@@ -20,6 +20,7 @@ public class GenCombinations implements Executor {
 				
 			}
 		}
+		return null;
 	}
 	
 	private char getCharacterforPosition(){

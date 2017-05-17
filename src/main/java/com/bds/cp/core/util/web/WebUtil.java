@@ -8,8 +8,11 @@ import com.bds.cp.core.util.CPStartupUtil;
 import com.bds.cp.core.util.CPStore;
 import com.bds.cp.core.util.CPUtil;
 import com.bds.cp.executors.Executor;
+import com.google.gson.Gson;
 
+import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -57,9 +60,11 @@ public class WebUtil {
         log.info("Done collecting parameter metadata for command name : " + commandName);
         return commandMetaData;
     }
-    
+
     public static String prepareHTMLForCommandMetadata(String commandName){
+    	Gson gson = new Gson();
     	CommandMetaData cmdDetail = getCommandMetadata(commandName);
+    	Map<String, String> dataMap = new HashMap<String,String>();
     	if(!CPUtil.isCommandAvailable(commandName)) return "<div><p> "+ commandName + " command not found.</p></div>";
     	StringBuilder sb = new StringBuilder();
     	sb.append("<div>");
@@ -71,7 +76,7 @@ public class WebUtil {
     	sb.append("<p>");
     	sb.append(cmdDetail.getCommandDescription());
     	sb.append("</p>");
-    	int i =0;
+    	Set<String> paramNames = new LinkedHashSet<String>();
     	for(String paramName:cmdDetail.getParamNames()){
     		if(cmdDetail.getParamNames().isEmpty()) break;
     		CommandParameter cp = cmdDetail.getDescriptionForParam(paramName);
@@ -79,16 +84,19 @@ public class WebUtil {
     		sb.append("<p>");
     		sb.append(paramDesc + " : ");
     		if(cp.getParamType().equals(CommandParameterType.STRING))
-    			sb.append("<input type = 'text' name='" + paramName + "' id='paramName" + i++ + "'/>");
+    			sb.append("<input type = 'text' name='" + paramName + "' id='" + paramName + "'/>");
     		else if(cp.getParamType().equals(CommandParameterType.FILE))
-    			sb.append("<input type='file' name='" + paramName + "' id='paramName" + i++ + "'/>");
+    			sb.append("<input type='file' name='" + paramName + "' id='" + paramName + "'/>");
+    		paramNames.add(paramName);
     		sb.append("</p>");
     	}
     	sb.append("</p>");
     	sb.append("</div>");
-    	return sb.toString();
+    	dataMap.put("htmlData", sb.toString());
+    	dataMap.put("paramNames",gson.toJson(paramNames));
+    	return gson.toJson(dataMap);
     }
-
+    
     public static Set<String> getCommandList(){
     	Set<String> cmds = new LinkedHashSet<String>();
     	for(String cmd : CPStore.getAvailableCommands()){

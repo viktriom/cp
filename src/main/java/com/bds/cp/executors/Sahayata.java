@@ -17,9 +17,8 @@ commandParamsDescription = {"The name of the command for the information is requ
 commandParameterType = {"String"})
 public class Sahayata implements Executor {
 
-	public void execute(Command command) {
-
-		
+	public String execute(Command command) {
+		return null;
 	}
 
 	public Command commandProcessor(String stringCommand) {
