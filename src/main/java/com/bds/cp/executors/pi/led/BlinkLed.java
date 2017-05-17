@@ -32,7 +32,7 @@ public class BlinkLed implements Executor {
         LEDController ledController = LEDController.getLEDController();
         ledController.flashSOS(count, waitTime);
 
-        return null;
+        return "The led attached to pi was blinked to : " + count;
     }
 
     public Command commandProcessor(String stringCommand) {

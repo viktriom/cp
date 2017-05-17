@@ -14,7 +14,7 @@ public class TurnOn implements Executor{
     public String execute(Command command) {
         LEDController ledController = LEDController.getLEDController();
         ledController.turnLEDOn();
-        return null;
+        return "LED Turned ON";
     }
 
     public Command commandProcessor(String stringCommand) {
