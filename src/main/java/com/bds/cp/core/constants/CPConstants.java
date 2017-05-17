@@ -21,11 +21,18 @@ public class CPConstants {
 			System.out.println("The new application context is : " + CPConstants.applicationContext);
 			return;
 		}
-			
-		if(applicContext.charAt(applicContext.length()-1)=='.')
-			CPConstants.applicationContext = CPConstants.applicationContext + applicContext;
-		else
-			CPConstants.applicationContext = CPConstants.applicationContext + applicContext + ".";
+		
+		if(applicContext.contains(".")){			
+			if(applicContext.charAt(applicContext.length()-1)=='.')
+				CPConstants.applicationContext = applicContext;
+			else
+				CPConstants.applicationContext = applicContext + ".";
+		}else{
+			if(applicContext.charAt(applicContext.length()-1)=='.')
+				CPConstants.applicationContext = CPConstants.applicationContext + applicContext;
+			else
+				CPConstants.applicationContext = CPConstants.applicationContext + applicContext + ".";
+		}
 		
 		System.out.println("The new application context is : " + CPConstants.applicationContext);
 	}

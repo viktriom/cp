@@ -292,7 +292,7 @@ public class CPUtil {
      * @param command - The string form of the command to be processed in the format [CommandName -<paramList> <valueList>]
      * (ex: CommandName -param1.param2.param3 value1 value2 value3).
      */
-	public static void executeCommand(String command){
+	public static String executeCommand(String command){
 
 		String className="";
 		String[] cmdParts;
@@ -300,7 +300,7 @@ public class CPUtil {
 		String tempAppCtx;
 
 		if(command==null || command.length()<=0)
-			return;
+			return null;
 		cmdParts = command.split(" ");
 
 		tempAppCtx= CPConstants.getApplicationContext();
@@ -314,12 +314,12 @@ public class CPUtil {
 		Executor e = CPStore.getCommandFromCommandStore(className);
 		if(e==null){
 			log.info("Command \""+className + "\" not found.");
-			return;
+			return null;
 		}
 		cmd = e.commandProcessor(command);
 		if(cmd==null)
 			cmd = CPUtil.parseCommand(command);
-		e.execute(cmd);
+		return e.execute(cmd);
 	}
 	
 	public static boolean isCommandAvailable(String commandName){
