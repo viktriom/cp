@@ -14,6 +14,8 @@ public class CPConstants {
 
 	private static Integer networkListenerPort;
 	
+	private static Boolean isInitializationComplete = false;
+	
 	public static void setApplicationContext(String applicContext){
 		
 		if(applicContext == null || applicContext.length()<=0){
@@ -74,6 +76,14 @@ public class CPConstants {
 	public static void setNetworkListenerPort(String networkListenerPort) {
 		if(CPUtil.isConvertibleToInt(networkListenerPort))
 			CPConstants.networkListenerPort = Integer.parseInt(networkListenerPort);
+	}
+
+	public static Boolean getIsInitializationComplete() {
+		return isInitializationComplete;
+	}
+
+	public static void setIsInitializationComplete(Boolean isInitializationComplete) {
+		CPConstants.isInitializationComplete = isInitializationComplete;
 	}
 	
 }

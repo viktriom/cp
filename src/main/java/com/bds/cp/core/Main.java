@@ -14,9 +14,8 @@ public class Main {
 
 	public static void main(String args[]){
 		Logger log = Logger.getLogger(Main.class);
-		CPStartupUtil.loadCommands();
-
-		CPUtil.loadPropertiesFileIntoClass(CPUtil.getPathForString("cp.properties"), "CPConstants",true);
+		
+		CPStartupUtil.initializeCommandProcessingSystem();
 
 		if(CPConstants.getCommandProcessingMode() == CommandProcessingMode.COMMANDLINE) {
 			log.info("Application is configured to run in CommandLine Mode, Starting it in command line mode now.");

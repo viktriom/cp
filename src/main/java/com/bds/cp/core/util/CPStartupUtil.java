@@ -13,6 +13,12 @@ public class CPStartupUtil {
 
 	private static Logger log = Logger.getLogger(CPStartupUtil.class);
 	
+	public static void initializeCommandProcessingSystem(){
+		loadCommands();
+		CPUtil.loadPropertiesFileIntoClass(CPUtil.getPathForString("cp.properties"), "CPConstants",true);
+		CPConstants.setIsInitializationComplete(true);
+	}
+	
 	public static void loadCommands(){
 		log.info("Loading executable commands...");
 		ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(true);
