@@ -1,6 +1,10 @@
 package com.bds.cp.core.constants;
 
+import org.apache.log4j.Level;
+
+import com.bds.cp.core.network.Server;
 import com.bds.cp.core.util.CPUtil;
+import com.bds.cp.core.util.LogUtil;
 
 public class CPConstants {
 
@@ -20,7 +24,7 @@ public class CPConstants {
 		
 		if(applicContext == null || applicContext.length()<=0){
 			CPConstants.fallToDefaultApplicationContext();
-			System.out.println("The new application context is : " + CPConstants.applicationContext);
+			LogUtil.log(CPConstants.class, Level.INFO, "The new application context is : " + CPConstants.applicationContext);
 			return;
 		}
 		
@@ -36,7 +40,7 @@ public class CPConstants {
 				CPConstants.applicationContext = CPConstants.applicationContext + applicContext + ".";
 		}
 		
-		System.out.println("The new application context is : " + CPConstants.applicationContext);
+		LogUtil.log(CPConstants.class, Level.INFO, "The new application context is : " + CPConstants.applicationContext);
 	}
 	
 	public static String getApplicationContext(){
@@ -46,7 +50,7 @@ public class CPConstants {
 	public static void fallToDefaultApplicationContext(){
 		CPConstants.applicationContext = defaultApplicationContext;
 		
-		System.out.println("The new application context is : " + CPConstants.applicationContext);
+		LogUtil.log(CPConstants.class, Level.INFO, "The new application context is : " + CPConstants.applicationContext);
 	}
 	
 	public static String getDefaultApplicationContext(){

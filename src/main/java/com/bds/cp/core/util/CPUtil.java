@@ -9,19 +9,33 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Scanner;
 
-import com.bds.cp.bean.Command;
-import com.bds.cp.core.constants.CPConstants;
-import com.bds.cp.executors.Executor;
+import org.apache.log4j.Level;
 
-import org.apache.log4j.Logger;
+import com.bds.cp.annotations.ExecutableCommand;
+import com.bds.cp.bean.Command;
+import com.bds.cp.bean.CommandMetaData;
+import com.bds.cp.bean.CommandParameter;
+import com.bds.cp.bean.CommandParameterType;
+import com.bds.cp.core.constants.CPConstants;
+import com.bds.cp.core.network.Server;
+import com.bds.cp.executors.Executor;
 
 
 public class CPUtil {
 	
-	private static Logger log = Logger.getLogger(CPUtil.class);
-	
-	@SuppressWarnings({"rawtypes", "Since15"})
-	
+	@SuppressWarnings({"rawtypes"})
+	/**
+	 * This method uses the reflection to load a properties file into a class. The name of the properties in the properties file should be same as the name in the Class 
+	 * For example: 
+	 * If the class has a property 
+	 * 		private static String hostName;
+	 * then the property file should have a property named : 
+	 * 		hostName=127.0.0.1  
+	 * @param fileName - The name of the properties file which is to be loaded.
+	 * @param fullyQualifiedClassName - Fully qualified class name in which the properties are to be loaded.
+	 * @param isStatic - Used to identify if a constructor is to be called or not.
+	 * @return Returns a new instance of the class with all properties initialized from a properties file.
+	 */
 	public static Object loadPropertiesFileIntoClass(String fileName, String fullyQualifiedClassName, boolean isStatic){
 		
 		String methodName = "";
@@ -53,33 +67,33 @@ public class CPUtil {
 					else
 						method.invoke(obj, parameter);
 				}catch (SecurityException e) {
-					log.error("A security exception was generated for the method name \""+methodName +"\" exists in the class \"" + fullyQualifiedClassName +"\".");
+					LogUtil.log(CPUtil.class, Level.ERROR, "A security exception was generated for the method name \""+methodName +"\" exists in the class \"" + fullyQualifiedClassName +"\".");
 					e.printStackTrace();
 				} catch (NoSuchMethodException e) {
-					log.error("No method with the name \""+methodName +"\" exists in the class \"" + fullyQualifiedClassName +"\".");
+					LogUtil.log(CPUtil.class, Level.ERROR, "No method with the name \""+methodName +"\" exists in the class \"" + fullyQualifiedClassName +"\".");
 					e.printStackTrace();
 				} catch (IllegalArgumentException e) {
-					log.error("IllegalArgumentException while calling the method \""+methodName +"\" exists in the class \"" + fullyQualifiedClassName +"\".");
+					LogUtil.log(CPUtil.class, Level.ERROR, "IllegalArgumentException while calling the method \""+methodName +"\" exists in the class \"" + fullyQualifiedClassName +"\".");
 					e.printStackTrace();
 				} catch (IllegalAccessException e) {
-					log.error("IllegalAccessException occured while accessing the method name \""+methodName +"\" exists in the class \"" + fullyQualifiedClassName +"\".");
+					LogUtil.log(CPUtil.class, Level.ERROR, "IllegalAccessException occured while accessing the method name \""+methodName +"\" exists in the class \"" + fullyQualifiedClassName +"\".");
 					e.printStackTrace();
 				} catch (InvocationTargetException e) {
-					log.error("InvocationTargetException occured while accessing the method name \""+methodName +"\" exists in the class \"" + fullyQualifiedClassName +"\".");
+					LogUtil.log(CPUtil.class, Level.ERROR, "InvocationTargetException occured while accessing the method name \""+methodName +"\" exists in the class \"" + fullyQualifiedClassName +"\".");
 					e.printStackTrace();
 				}
 			}
 			
 		} catch(IOException ex){
-			log.error("There was an error reading the property file, proceeding with defaults." + ex.getMessage());
+			LogUtil.log(CPUtil.class, Level.ERROR, "There was an error reading the property file, proceeding with defaults." + ex.getMessage());
 		} catch (ClassNotFoundException e) {
-			log.error("The specified class not found, properties not loaded.");
+			LogUtil.log(CPUtil.class, Level.ERROR, "The specified class not found, properties not loaded.");
 			e.printStackTrace();
 		} catch (InstantiationException e) {
-			log.error("Unable to Intantiate the class");
+			LogUtil.log(CPUtil.class, Level.ERROR, "Unable to Intantiate the class");
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			log.error("There was an exception.");
+			LogUtil.log(CPUtil.class, Level.ERROR, "There was an exception.");
 			e.printStackTrace();
 		} catch (SecurityException e) {
 			e.printStackTrace();
@@ -93,6 +107,12 @@ public class CPUtil {
 		return obj;
 	}
 	
+	/**
+	 * Tells if a given string contains anything other than digits 0 to 9. 
+	 * Using that it can be identified whether the string can be converted to decimal number or not.
+	 * @param string - The string which is to be tested.
+	 * @return - If the string can be converted to a decimal integer or not.
+	 */
 	public static boolean isConvertibleToInt(String string){
 		if(null == string || string.length() <=0)
 			return false;
@@ -150,8 +170,8 @@ public class CPUtil {
 	
 	public static Command parseCommand(String command){
 		Command cmd=new Command();
-		/*log.info("Command parsed by Util.parseCommand().");
-		log.info("The command string is : " + command);*/
+		/*LogUtil.log(CPUtil.class, Level.INFO, "Command parsed by Util.parseCommand().");
+		LogUtil.log(CPUtil.class, Level.INFO, "The command string is : " + command);*/
 		String[] commandParts = command.split(" ");
         cmd.setCommand(commandParts[0]);
         if(commandParts.length==1)
@@ -187,7 +207,7 @@ public class CPUtil {
         		opt = String.valueOf(opts[j]);
         	
         	if(j>commandParts.length){
-        		System.out.println("Arguments cannot be more than options.");
+        		LogUtil.log(CPUtil.class, Level.INFO, "Arguments cannot be more than options.");
         		break;
         	}
         	
@@ -205,7 +225,7 @@ public class CPUtil {
         		opt = opts[j];
         	
         	if(j>commandParts.length){
-        		System.out.println("Arguments cannot be more than options.");
+        		LogUtil.log(CPUtil.class, Level.INFO, "Arguments cannot be more than options.");
         		break;
         	}
         	
@@ -279,7 +299,7 @@ public class CPUtil {
 		}
 		
 		for(int i=fact;i<argSet.size();i++){
-			System.out.println("Enter " + argSet.get(i) +":");
+			LogUtil.log(CPUtil.class, Level.INFO, "Enter " + argSet.get(i) +":");
 			arg = in.nextLine();
 			command.setArgumentForOption(String.valueOf(i), arg);
 		}
@@ -313,7 +333,7 @@ public class CPUtil {
 
 		Executor e = CPStore.getCommandFromCommandStore(className);
 		if(e==null){
-			log.info("Command \""+className + "\" not found.");
+			LogUtil.log(CPUtil.class, Level.INFO, "Command \""+className + "\" not found.");
 			return null;
 		}
 		cmd = e.commandProcessor(command);
@@ -327,5 +347,45 @@ public class CPUtil {
 		if(!CPStore.getAvailableCommands().contains(commandName)) return false;
 		return true;
 	}
+	
 
+	/**
+	 * Extracts metadata of a command for a given command name. The metadata includes the name of the command and what type parameters the command accepts.
+	 * This metadata can be used to display information for displaying information about a command.
+	 * @param commandName - The name of the command for which metadata information is required.
+	 * Just the command name if the command context is already set. 
+	 * The fully qualified class name if the command context in not already set.  
+	 * @return - The metadata Object.
+	 */
+    public static CommandMetaData getCommandMetadata(String commandName){
+        LogUtil.log(CPUtil.class, Level.INFO, "Preparing Command metadata for command : ." + commandName);
+        CommandMetaData commandMetaData = null;
+        String commandDescription = "";
+        String[] paramNames, paramNameDescription, paramType;
+        Executor executor = CPStore.getCommandFromCommandStore(commandName);
+        
+        if(null != executor && executor.getClass().isAnnotationPresent(ExecutableCommand.class)){
+        	
+        	commandMetaData = new CommandMetaData();
+            
+        	ExecutableCommand executableCommand = (ExecutableCommand)executor.getClass().getAnnotation(ExecutableCommand.class);
+            
+            commandDescription = executableCommand.commandDescription();
+            
+            commandMetaData.setCommandName(commandName);
+            commandMetaData.setCommandDescription(commandDescription);
+            
+            paramNames = executableCommand.commandParams();
+            paramNameDescription = executableCommand.commandParamsDescription();
+            paramType = executableCommand.commandParameterType();
+            
+            for(int i = 0;i <paramNames.length;i++){
+            	if(paramNames[i].isEmpty() || paramNames[i].length() <= 0) continue;
+            	CommandParameter cp = new com.bds.cp.bean.CommandParameter(paramNames[i], paramNameDescription[i], CommandParameterType.getCommandParameterType(paramType[i]));
+            	commandMetaData.addParamNameAndDescription(paramNames[i], cp);
+            }
+        }
+        LogUtil.log(CPUtil.class, Level.INFO, "Done collecting parameter metadata for command name : " + commandName);
+        return commandMetaData;
+    }    
 }

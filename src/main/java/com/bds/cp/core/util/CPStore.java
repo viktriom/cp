@@ -14,8 +14,6 @@ import org.apache.log4j.Logger;
  *
  */
 public class CPStore {
-
-	private static Logger log = Logger.getLogger(CPStore.class);
 	
 	private static Map<String,CommandBean> commandStore = new HashMap<String,CommandBean>();
 

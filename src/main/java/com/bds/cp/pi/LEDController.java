@@ -1,5 +1,9 @@
 package com.bds.cp.pi;
 
+import org.apache.log4j.Level;
+
+import com.bds.cp.core.util.LogUtil;
+import com.bds.cp.executors.test.GenCombinations;
 
 /**
  * A controller for an LED at pin 6 and a Button at pin 7.
@@ -80,7 +84,7 @@ public class LEDController implements ButtonListener
      */
     public void buttonChanged(boolean isPressed)
     {
-        System.out.println("Method called.");
+    	LogUtil.log(LEDController.class, Level.INFO, "Method called.");
         if(isPressed){
             turnLEDOn();
         }else{

@@ -2,10 +2,13 @@ package com.bds.cp.core.listener;
 
 import com.bds.cp.core.network.Server;
 import com.bds.cp.core.util.CPUtil;
+import com.bds.cp.core.util.LogUtil;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.Date;
+
+import org.apache.log4j.Level;
 
 /**
  * Created by sonu on 06/12/16.
@@ -25,13 +28,14 @@ public class NetworkCommandListener extends Thread{
     }
 
     public void run(){
-        System.out.println("NetworkCommandListener with ID : " + String.valueOf(id) + "running.");
+    	LogUtil.log(NetworkCommandListener.class, Level.INFO, "NetworkCommandListener with ID : " + String.valueOf(id) + "running.");
         while(true){
             try{
                 String message = in.readUTF();
-                System.out.println(message);
-                CPUtil.executeCommand(message);
-                sendMessage("Message received at : "+(new Date(System.currentTimeMillis())).toString());
+                LogUtil.log(NetworkCommandListener.class, Level.INFO, message);
+                String response = CPUtil.executeCommand(message);
+                LogUtil.log(NetworkCommandListener.class, Level.INFO, "Sending response back to client : " + response);
+                sendMessage(response);
             } catch (EOFException eofEx){
                 try {
                     close();
@@ -47,9 +51,12 @@ public class NetworkCommandListener extends Thread{
 
     public void sendMessage(String message){
         try{
+        	if(null == out ){
+        		LogUtil.log(NetworkCommandListener.class, Level.INFO, "The output stream used to send message is empty.");
+        	}
             out.writeUTF(message);
         } catch (IOException ioe){
-            System.out.println("Unable to send message to the remote host.");
+        	LogUtil.log(NetworkCommandListener.class, Level.INFO, "Unable to send message to the remote host.");
             ioe.printStackTrace();
         }
     }

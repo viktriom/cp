@@ -12,14 +12,14 @@ import org.springframework.core.type.filter.AnnotationTypeFilter;
 public class CPStartupUtil {
 
 	private static Logger log = Logger.getLogger(CPStartupUtil.class);
-	
-	public static void initializeCommandProcessingSystem(){
+
+	public static void initializeCommandProcessingSystem() {
 		loadCommands();
-		CPUtil.loadPropertiesFileIntoClass(CPUtil.getPathForString("cp.properties"), "CPConstants",true);
+		CPUtil.loadPropertiesFileIntoClass(CPUtil.getPathForString("cp.properties"), "CPConstants", true);
 		CPConstants.setIsInitializationComplete(true);
 	}
-	
-	public static void loadCommands(){
+
+	public static void loadCommands() {
 		log.info("Loading executable commands...");
 		ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(true);
 		Executor executor;
@@ -28,13 +28,13 @@ public class CPStartupUtil {
 		scanner.addIncludeFilter(new AnnotationTypeFilter(ExecutableCommand.class));
 		String applicationContext = CPConstants.getApplicationContext();
 		applicationContext = applicationContext.substring(0, CPUtil.getIndexOfCharFromRight(applicationContext, '.'));
-		for (BeanDefinition bd : scanner.findCandidateComponents(applicationContext)){
+		for (BeanDefinition bd : scanner.findCandidateComponents(applicationContext)) {
 			fullCommandName = bd.getBeanClassName();
-			try{
+			try {
 				Class<Executor> c = (Class<Executor>) Class.forName(fullCommandName);
 				executor = c.newInstance();
 				CPStore.putCommandInCommandStore(fullCommandName, executor);
-			} catch(ClassNotFoundException ex){
+			} catch (ClassNotFoundException ex) {
 				log.error("Command not found : " + fullCommandName);
 			} catch (InstantiationException e) {
 				log.error(e.getMessage());
@@ -43,16 +43,16 @@ public class CPStartupUtil {
 				log.error(e.getMessage());
 				e.getStackTrace();
 			}
-			
-			log.info("Loaded Command : "+fullCommandName);
-		    
+
+			log.info("Loaded Command : " + fullCommandName);
+
 		}
 		log.info("Done with command loading.");
 	}
-	
-	public static void reloadCommandBase(){
+
+	public static void reloadCommandBase() {
 		CPStore.clearCommandStore();
 		loadCommands();
 	}
-	
+
 }

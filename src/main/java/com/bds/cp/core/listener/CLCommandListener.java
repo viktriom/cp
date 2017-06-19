@@ -4,8 +4,11 @@ import java.io.BufferedInputStream;
 import java.util.Scanner;
 
 import com.bds.cp.bean.Command;
+import com.bds.cp.core.network.Server;
 import com.bds.cp.core.util.CPUtil;
+import com.bds.cp.core.util.LogUtil;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 public class CLCommandListener implements Runnable{
@@ -29,7 +32,7 @@ public class CLCommandListener implements Runnable{
 	 * for the command on the command line. It keeps on listening continuously until the exit command is called.
 	 */
 	public void run(){
-		System.out.println("Listening..");
+		LogUtil.log(CLCommandListener.class, Level.INFO, "Listening..");
 		String className="";
 
 
@@ -38,8 +41,8 @@ public class CLCommandListener implements Runnable{
 			try{
 				CPUtil.executeCommand(command);
 			} catch (Exception e) {
-				log.error("Command not found : " + className);
-				log.error(e.getMessage());
+				LogUtil.log(CLCommandListener.class, Level.ERROR, "Command not found : " + className);
+				LogUtil.log(CLCommandListener.class, Level.ERROR, e.getMessage());
 				e.getStackTrace();
 			}
 		}

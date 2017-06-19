@@ -1,7 +1,11 @@
 package com.bds.cp.executors.test;
 
+import org.apache.log4j.Level;
+
 import com.bds.cp.annotations.ExecutableCommand;
 import com.bds.cp.bean.Command;
+import com.bds.cp.core.network.Server;
+import com.bds.cp.core.util.LogUtil;
 import com.bds.cp.executors.Executor;
 
 @ExecutableCommand(commandDescription = "Generates all possible combinations of a string", 
@@ -14,7 +18,7 @@ public class GenCombinations implements Executor {
 		char[] pChars = permutationString.toCharArray();
 		int totalChars = pChars.length;
 		int totalCombinations = getTotalPermutations(totalChars);
-		System.out.println("Total no. Of combination possible for the string are " + totalCombinations);
+		LogUtil.log(GenCombinations.class, Level.INFO, "Total no. Of combination possible for the string are " + totalCombinations);
 		for(int i=0;i<totalCombinations;i++){
 			for(int j=0;j<totalChars;j++){
 				

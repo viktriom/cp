@@ -1,7 +1,11 @@
 package com.bds.cp.executors;
 
+import org.apache.log4j.Level;
+
 import com.bds.cp.annotations.ExecutableCommand;
 import com.bds.cp.bean.Command;
+import com.bds.cp.core.util.LogUtil;
+import com.bds.cp.executors.test.GenCombinations;
 
 @ExecutableCommand(commandDescription = "Prints the given String.", 
 commandParams = {"Echo-"}, 
@@ -10,7 +14,7 @@ commandParameterType = {"String"})
 public class Echo implements Executor{
 	
 	public String execute(Command command){
-		System.out.println(command.getAllArgumentsAsString());
+		LogUtil.log(Echo.class, Level.INFO, command.getAllArgumentsAsString());
 		return command.getAllArgumentsAsString();
 	}
 
