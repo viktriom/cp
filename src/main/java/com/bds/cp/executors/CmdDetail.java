@@ -12,7 +12,7 @@ import com.bds.cp.core.util.LogUtil;
 import com.google.gson.Gson;
 
 @ExecutableCommand(commandDescription = "Get command detail for a particualr command (ex: Parameters required, type of params etc..)", 
-commandParams = {"cn"}, 
+commandParams = {"c"}, 
 commandParamsDescription = {"Fully qualitifed Command Name"}, 
 commandParameterType = {"String"})
 public class CmdDetail implements Executor {
@@ -20,7 +20,7 @@ public class CmdDetail implements Executor {
 	@Override
 	public String execute(Command command) {
 		Gson gson = new Gson();
-		String cmdName = command.getArgumentForOption("cn");
+		String cmdName = command.getArgumentForOption("c");
 		LogUtil.log(CmdDetail.class, Level.INFO, "Request to get command detail received, for command : " + cmdName);
 		CommandMetaData cmdDetail = CPUtil.getCommandMetadata(cmdName);
 		LogUtil.log(CmdDetail.class, Level.INFO, "");

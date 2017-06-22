@@ -1,9 +1,9 @@
 package com.bds.cp.executors;
 
+import org.apache.log4j.Level;
+
 import com.bds.cp.annotations.ExecutableCommand;
 import com.bds.cp.bean.Command;
-import com.bds.cp.core.util.CPStore;
-import com.bds.cp.core.util.CPUtil;
 import com.bds.cp.core.util.LogUtil;
 
 /**
@@ -16,7 +16,7 @@ commandParameterType={})
 public class Cmd implements Executor{
 
     public String execute(Command command) {
-        LogUtil.logger(this.getClass()).info("Following commands are available for executions.");
+        LogUtil.log(this.getClass(),Level.INFO,"Following commands are available for executions.");
         return null;
     }
 

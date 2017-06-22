@@ -51,8 +51,9 @@ public class NetworkCommandListener extends Thread{
 
     public void sendMessage(String message){
         try{
-        	if(null == out ){
+        	if(null == out || null == message){
         		LogUtil.log(NetworkCommandListener.class, Level.INFO, "The output stream used to send message is empty.");
+        		return;
         	}
             out.writeUTF(message);
         } catch (IOException ioe){
@@ -64,7 +65,7 @@ public class NetworkCommandListener extends Thread{
     public void open() throws IOException {
         in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         out = new DataOutputStream(socket.getOutputStream());
-        out.writeUTF("Connected");
+        //out.writeUTF("Connected");
     }
 
     public void close() throws IOException {
