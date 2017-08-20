@@ -15,12 +15,12 @@ import com.google.gson.Gson;
 commandParams = {"c"}, 
 commandParamsDescription = {"Fully qualitifed Command Name"}, 
 commandParameterType = {"String"})
-public class CmdDetail implements Executor {
+public class CmdDetail implements Executable {
 	
 	@Override
 	public String execute(Command command) {
 		Gson gson = new Gson();
-		String cmdName = command.getArgumentForOption("c");
+		String cmdName = command.getValueForParam("c");
 		LogUtil.log(CmdDetail.class, Level.INFO, "Request to get command detail received, for command : " + cmdName);
 		CommandMetaData cmdDetail = CPUtil.getCommandMetadata(cmdName);
 		LogUtil.log(CmdDetail.class, Level.INFO, "");

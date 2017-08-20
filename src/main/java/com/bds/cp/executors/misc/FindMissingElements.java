@@ -4,7 +4,7 @@ import java.util.Set;
 
 import com.bds.cp.annotations.ExecutableCommand;
 import com.bds.cp.bean.Command;
-import com.bds.cp.executors.Executor;
+import com.bds.cp.executors.Executable;
 import com.vt.o2f.dataReader.FileDataReader;
 import com.vt.o2f.dataReader.FileDataStore;
 
@@ -13,12 +13,12 @@ import com.vt.o2f.dataReader.FileDataStore;
 		commandParamsDescription = {"Name of the file from which to read the first list","Name of the file from which to read the second list", "Output File Name"},
 		commandParameterType = {"File", "File", "String"}
 )
-public class FindMissingElements implements Executor{
+public class FindMissingElements implements Executable{
 
 	@Override
 	public String execute(Command command) {
-		String fileNameForL1 = command.getArgumentForOption("l1");
-		String fileNameForL2 = command.getArgumentForOption("l2");
+		String fileNameForL1 = command.getValueForParam("l1");
+		String fileNameForL2 = command.getValueForParam("l2");
 		
 		FileDataReader fileReader1 = new FileDataReader(fileNameForL1);
 		FileDataReader fileReader2 = new FileDataReader(fileNameForL2);

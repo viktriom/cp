@@ -3,14 +3,14 @@
  */
 package com.bds.cp.bean;
 
-import com.bds.cp.executors.Executor;
+import com.bds.cp.executors.Executable;
 
 /**
  * @author tripvi (Tripathi, Vivek)
  *
  */
 public class CommandBean {
-	private Executor executor;
+	private Executable executor;
 	private long lastAccessTime;
 	
 	public CommandBean(){
@@ -18,16 +18,16 @@ public class CommandBean {
 		lastAccessTime=0;
 	}
 	
-	public CommandBean(Executor executor, long lastAccessTime){
+	public CommandBean(Executable executor, long lastAccessTime){
 		this.executor = executor;
 		this.lastAccessTime = lastAccessTime;
 	}
 
-	public Executor getExecutor() {
+	public Executable getExecutor() {
 		return executor;
 	}
 	
-	public void setExecutor(Executor executor) {
+	public void setExecutor(Executable executor) {
 		this.executor = executor;
 	}
 	

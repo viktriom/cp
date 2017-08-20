@@ -15,21 +15,21 @@ import com.bds.cp.core.constants.CPConstants;
 commandParams = {"index 0"}, 
 commandParamsDescription = {"The new command context"},
 commandParameterType = {"String"})
-public class SetContext implements Executor {
+public class SetContext implements Executable {
 
 	/* (non-Javadoc)
 	 * @see com.gs.fw.automator.executors.Executor#execute(com.gs.fw.automator.bean.Command)
 	 */
 	public String execute(Command command) {
-		String newApplicationContext = command.getArgumentForOption(0);
+		String newApplicationContext = command.getValueForParamByPosition(0);
 		
 		if(newApplicationContext==null || newApplicationContext.length()<=0 || command.getArgumentsCount()<=0){
 			CPConstants.fallToDefaultApplicationContext();
-			return CPConstants.getApplicationContext();
+			return CPConstants.getCommandContext();
 		}
 		
-		CPConstants.setApplicationContext(newApplicationContext);
-		return CPConstants.getApplicationContext();
+		CPConstants.setComandContext(newApplicationContext);
+		return CPConstants.getCommandContext();
 	}
 
 	/* (non-Javadoc)

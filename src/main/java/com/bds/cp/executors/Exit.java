@@ -14,7 +14,7 @@ import com.bds.cp.executors.test.GenCombinations;
 		commandParamsDescription = {},
 		commandParameterType = {}
 )
-public class Exit implements Executor{
+public class Exit implements Executable{
 
 	public String execute(Command command){
 		LogUtil.log(Exit.class, Level.INFO, "Bye");

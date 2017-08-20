@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 commandParams = {}, 
 commandParamsDescription = {}, 
 commandParameterType = {})
-public class CmdList implements Executor {
+public class CmdList implements Executable {
 
 	@Override
 	public String execute(Command command) {

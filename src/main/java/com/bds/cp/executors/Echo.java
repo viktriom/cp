@@ -11,11 +11,11 @@ import com.bds.cp.executors.test.GenCombinations;
 commandParams = {"Echo-"}, 
 commandParamsDescription = {"The String to be printed."}, 
 commandParameterType = {"String"})
-public class Echo implements Executor{
+public class Echo implements Executable{
 	
 	public String execute(Command command){
-		LogUtil.log(Echo.class, Level.INFO, command.getAllArgumentsAsString());
-		return command.getAllArgumentsAsString();
+		LogUtil.log(Echo.class, Level.INFO, command.getAllParamsAsString());
+		return command.getAllParamsAsString();
 	}
 
     public Command commandProcessor(String stringCommand) {

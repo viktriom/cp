@@ -2,12 +2,15 @@ package com.bds.cp.core.util;
 
 import com.bds.cp.annotations.ExecutableCommand;
 import com.bds.cp.core.constants.CPConstants;
-import com.bds.cp.executors.Executor;
+import com.bds.cp.executors.Executable;
+
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
+import org.springframework.core.type.filter.RegexPatternTypeFilter;
 
 public class CPStartupUtil {
 
@@ -21,30 +24,26 @@ public class CPStartupUtil {
 
 	public static void loadCommands() {
 		log.info("Loading executable commands...");
-		ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(true);
-		Executor executor;
-		String fullCommandName;
-
+		ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
 		scanner.addIncludeFilter(new AnnotationTypeFilter(ExecutableCommand.class));
-		String applicationContext = CPConstants.getApplicationContext();
-		applicationContext = applicationContext.substring(0, CPUtil.getIndexOfCharFromRight(applicationContext, '.'));
+		Class<?> executor;
+		String applicationContext = CPConstants.getCommandContext().substring(0, CPUtil.getIndexOfCharFromRight(CPConstants.getCommandContext(), '.'));
 		for (BeanDefinition bd : scanner.findCandidateComponents(applicationContext)) {
-			fullCommandName = bd.getBeanClassName();
 			try {
-				Class<Executor> c = (Class<Executor>) Class.forName(fullCommandName);
-				executor = c.newInstance();
-				CPStore.putCommandInCommandStore(fullCommandName, executor);
+				executor = Class.forName(bd.getBeanClassName());
+				Executable command = (Executable) executor.newInstance();
+				CPStore.addCommandToStore(command);
 			} catch (ClassNotFoundException ex) {
-				log.error("Command not found : " + fullCommandName);
+				log.error("Command not found : " + bd.getBeanClassName());
 			} catch (InstantiationException e) {
 				log.error(e.getMessage());
 			} catch (Exception e) {
-				log.error("Command not found : " + fullCommandName);
+				log.error("Command not found : " + bd.getBeanClassName());
 				log.error(e.getMessage());
 				e.getStackTrace();
 			}
 
-			log.info("Loaded Command : " + fullCommandName);
+			log.info("Loaded Command : " + bd.getBeanClassName());
 
 		}
 		log.info("Done with command loading.");

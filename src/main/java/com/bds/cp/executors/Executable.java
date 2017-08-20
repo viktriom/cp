@@ -3,7 +3,7 @@ package com.bds.cp.executors;
 import com.bds.cp.bean.Command;
 
 
-public interface Executor {
+public interface Executable {
 	/**
 	 * Define/Implement the behavior of the command here.
 	 * @param command : Instance of the Command object, use this to retrieve specifics regarding the command like arguments, options etc.

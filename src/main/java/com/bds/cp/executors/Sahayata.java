@@ -15,7 +15,7 @@ import com.bds.cp.bean.Command;
 commandParams = {"cmd"}, 
 commandParamsDescription = {"The name of the command for the information is required"},
 commandParameterType = {"String"})
-public class Sahayata implements Executor {
+public class Sahayata implements Executable {
 
 	public String execute(Command command) {
 		return null;

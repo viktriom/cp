@@ -7,10 +7,10 @@ import org.apache.log4j.Level;
 import com.bds.cp.annotations.ExecutableCommand;
 import com.bds.cp.bean.Command;
 import com.bds.cp.core.util.LogUtil;
-import com.bds.cp.executors.Executor;
+import com.bds.cp.executors.Executable;
 
 @ExecutableCommand(commandDescription = "Generates Universal Identifier.", commandParams = {}, commandParamsDescription = {}, commandParameterType={})
-public class GenerateUUID implements Executor {
+public class GenerateUUID implements Executable {
 
 	public String execute(Command command) {
 		String uuid = UUID.randomUUID().toString();

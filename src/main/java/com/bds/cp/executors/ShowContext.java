@@ -13,11 +13,11 @@ import com.bds.cp.executors.test.GenCombinations;
 commandParams = {}, 
 commandParamsDescription = {},
 commandParameterType = {})
-public class ShowContext implements Executor {
+public class ShowContext implements Executable {
 
 	public String execute(Command command) {
-		LogUtil.log(ShowContext.class, Level.INFO, CPConstants.getApplicationContext());
-		return CPConstants.getApplicationContext();
+		LogUtil.log(ShowContext.class, Level.INFO, CPConstants.getCommandContext());
+		return CPConstants.getCommandContext();
 	}
 
 	public Command commandProcessor(String stringCommand) {

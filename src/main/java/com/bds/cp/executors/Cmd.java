@@ -13,7 +13,7 @@ import com.bds.cp.core.util.LogUtil;
 commandParams = {}, 
 commandParamsDescription = {},
 commandParameterType={})
-public class Cmd implements Executor{
+public class Cmd implements Executable{
 
     public String execute(Command command) {
         LogUtil.log(this.getClass(),Level.INFO,"Following commands are available for executions.");

@@ -18,7 +18,7 @@ import com.bds.cp.bean.CommandParameter;
 import com.bds.cp.bean.CommandParameterType;
 import com.bds.cp.core.constants.CPConstants;
 import com.bds.cp.core.network.Server;
-import com.bds.cp.executors.Executor;
+import com.bds.cp.executors.Executable;
 
 
 public class CPUtil {
@@ -173,7 +173,7 @@ public class CPUtil {
 		/*LogUtil.log(CPUtil.class, Level.INFO, "Command parsed by Util.parseCommand().");
 		LogUtil.log(CPUtil.class, Level.INFO, "The command string is : " + command);*/
 		String[] commandParts = command.split(" ");
-        cmd.setCommand(commandParts[0]);
+        cmd.setCommandName(commandParts[0]);
         if(commandParts.length==1)
             return cmd;
         String options = commandParts[1];
@@ -191,7 +191,7 @@ public class CPUtil {
             
         }else{
             for(int i =1;i<commandParts.length;i++){
-                cmd.setArgumentForOption(String.valueOf(i-1),commandParts[i]);
+                cmd.addParameterToCommand(String.valueOf(i-1),commandParts[i]);
             }
         }
 		return cmd;
@@ -211,7 +211,7 @@ public class CPUtil {
         		break;
         	}
         	
-            cmd.setArgumentForOption(opt,commandParts[i]);
+            cmd.addParameterToCommand(opt,commandParts[i]);
         }
 	}
 	
@@ -229,7 +229,7 @@ public class CPUtil {
         		break;
         	}
         	
-            cmd.setArgumentForOption(opt,commandParts[i]);
+            cmd.addParameterToCommand(opt,commandParts[i]);
         }
 	}
 	
@@ -237,7 +237,7 @@ public class CPUtil {
 	public static boolean executorExists(String fullyQualifiedClassName){
 		boolean classExists = false;
 		try {
-			Class<Executor> exec = (Class<Executor>)Class.forName(fullyQualifiedClassName);
+			Class<Executable> exec = (Class<Executable>)Class.forName(fullyQualifiedClassName);
 			classExists = true;
 		} catch (ClassNotFoundException e) {
 			classExists = false;
@@ -278,7 +278,7 @@ public class CPUtil {
 			String str = arr[i];
 			if(str.indexOf('>')>=0){
 				arr[i] = str.substring(str.indexOf('>')+1,str.length());
-				actStr = actStr + command.getArgumentForOption(paramCt++) + arr[i];
+				actStr = actStr + command.getValueForParamByPosition(paramCt++) + arr[i];
 			}else{
 				actStr = actStr + arr[i];
 			}
@@ -288,11 +288,11 @@ public class CPUtil {
 	
 	public static void obtainParametersForCommand(ArrayList<String> argSet, Command command){
 		Scanner in = new Scanner(System.in);
-		int argCt = command.getArgumentsCount();
+		int argCt = command.getParameterCount();
 		String arg = "";
 		int fact = 0;
 		for(int j=argCt;j<argSet.size();j++){
-			if(command.getArgumentForOption(j)==null){
+			if(command.getValueForParamByPosition(j)==null){
 				fact=j;
 				break;
 			}
@@ -301,7 +301,7 @@ public class CPUtil {
 		for(int i=fact;i<argSet.size();i++){
 			LogUtil.log(CPUtil.class, Level.INFO, "Enter " + argSet.get(i) +":");
 			arg = in.nextLine();
-			command.setArgumentForOption(String.valueOf(i), arg);
+			command.addParameterToCommand(String.valueOf(i), arg);
 		}
 	}
 
@@ -323,15 +323,15 @@ public class CPUtil {
 			return null;
 		cmdParts = command.split(" ");
 
-		tempAppCtx= CPConstants.getApplicationContext();
-		className = CPConstants.getApplicationContext() + cmdParts[0];
+		tempAppCtx= CPConstants.getCommandContext();
+		className = CPConstants.getCommandContext() + cmdParts[0];
 
-		while((!CPUtil.executorExists(className)) && tempAppCtx.length()>= CPConstants.getDefaultApplicationContext().length()){
+		while((!CPUtil.executorExists(className)) && tempAppCtx.length()>= CPConstants.getDefaultCommandContext().length()){
 			tempAppCtx = tempAppCtx.substring(0, CPUtil.getIndexOfCharFromRight(tempAppCtx,'.'));
 			className = tempAppCtx + "." + cmdParts[0];
 		}
 
-		Executor e = CPStore.getCommandFromCommandStore(className);
+		Executable e = CPStore.getCommandFromCommandStore(className);
 		if(e==null){
 			LogUtil.log(CPUtil.class, Level.INFO, "Command \""+className + "\" not found.");
 			return null;
@@ -362,7 +362,7 @@ public class CPUtil {
         CommandMetaData commandMetaData = null;
         String commandDescription = "";
         String[] paramNames, paramNameDescription, paramType;
-        Executor executor = CPStore.getCommandFromCommandStore(commandName);
+        Executable executor = CPStore.getCommandFromCommandStore(commandName);
         
         if(null != executor && executor.getClass().isAnnotationPresent(ExecutableCommand.class)){
         	

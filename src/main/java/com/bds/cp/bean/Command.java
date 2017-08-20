@@ -6,79 +6,71 @@ import java.util.Set;
 
 public class Command{
 	
-	//Declaration of instances
+	private String commandName;
+	private Map<String,String> params;
 	
-	//The basic command
-	private String command;
-	
-	//The options and arguments for this command.
-
-    //private Map<Character,String> argsWithOptions;
-	private Map<String,String> argsWithOptions;
-	
-	//The option counter;
-	int argumentCount;
-	
-	//The default constructor
 	public Command(){
-        //argsWithOptions = new LinkedHashMap<Character,String>();
-		argsWithOptions = new LinkedHashMap<String,String>();
-		command = "";
-		argumentCount =0;
+		params = new LinkedHashMap<String,String>();
+		commandName = "";
 	}
 	
 	
-	public void setCommand(String command){
-		this.command = command;
+	public void setCommandName(String command){
+		this.commandName = command;
 	}
 	
 	public String getCommandName(){
-		return this.command;
+		return this.commandName;
 	}
 
-    //public void setArgumentForOption(char option, String argument){
-	public void setArgumentForOption(String option, String argument){
-        //argsWithOptions.put(Character.valueOf(option),argument);
-    	argsWithOptions.put(option,argument);
-        this.argumentCount ++;
+	public void addParameterToCommand(String paramName, String paramValue){
+    	params.put(paramName,paramValue);
     }
 
-    public String getArgumentForOption(String option){
-        return argsWithOptions.get(option);
+    public String getValueForParam(String paramName){
+        return params.get(paramName);
     }
 
-    public String getArgumentForOption(int option){
-        return argsWithOptions.get(String.valueOf(option));
+    public String getValueForParamByPosition(int pos){
+        String param = null;
+        int index = 0;
+        for(String key : params.keySet()){
+        	if(pos < 0)
+        		break;
+        	if(index == pos){
+        		param = params.get(key);
+        		break;
+        	}
+        	index ++;
+        }
+        return param;
     }
 	
-	public String getAllArgumentsAsString(){
+    public int getParameterCount(){
+    	if(params.isEmpty())return 0;
+    	return params.keySet().size();
+    }
+    
+	public String getAllParamsAsString(){
 		String arguments="";
         int j =0;
-        //Set<Character> keys = argsWithOptions.keySet();
-        Set<String> keys = argsWithOptions.keySet();
-		//for(char ch : keys){
+        Set<String> keys = params.keySet();
         for(String ch : keys){
 			if(j< keys.size())
                 arguments = arguments+" ";
-            arguments = arguments + argsWithOptions.get(ch);
+            arguments = arguments + params.get(ch);
             j++;
 		}
 		return arguments.trim();
 	}
 	
-	
-	public int getArgumentsCount(){
-		return argumentCount;
-	}
-	
 	public String toString(){
 
-        String strCmd = command + " ";
+        String strCmd = commandName + " ";
         String options="-";
         String args = "";
         int j =0;
-		//Set<Character> keys = argsWithOptions.keySet();
-        Set<String> keys = argsWithOptions.keySet();
+        Set<String> keys = params.keySet();
 		
         for(String ch : keys){
         	if(j==0)
@@ -87,9 +79,9 @@ public class Command{
         		options = options + "." + String.valueOf(ch);
 
 			if(j==0)
-				args = args + argsWithOptions.get(ch);
+				args = args + params.get(ch);
 			else
-				args = args + " " + argsWithOptions.get(ch);
+				args = args + " " + params.get(ch);
 			j++;
 		}
         strCmd = strCmd + options + " " + args;

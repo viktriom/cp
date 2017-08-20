@@ -6,15 +6,15 @@ import com.bds.cp.annotations.ExecutableCommand;
 import com.bds.cp.bean.Command;
 import com.bds.cp.core.network.Server;
 import com.bds.cp.core.util.LogUtil;
-import com.bds.cp.executors.Executor;
+import com.bds.cp.executors.Executable;
 
 @ExecutableCommand(commandDescription = "Generates all possible combinations of a string", 
 commandParams = {"The string whose possible combinations are to be generated"}, commandParamsDescription = {"0"},
 commandParameterType={"String"})
-public class GenCombinations implements Executor {
+public class GenCombinations implements Executable {
 
 	public String execute(Command command) {
-		String permutationString = command.getArgumentForOption(0);
+		String permutationString = command.getValueForParamByPosition(0);
 		char[] pChars = permutationString.toCharArray();
 		int totalChars = pChars.length;
 		int totalCombinations = getTotalPermutations(totalChars);
