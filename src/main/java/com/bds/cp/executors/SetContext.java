@@ -23,7 +23,7 @@ public class SetContext implements Executable {
 	public String execute(Command command) {
 		String newApplicationContext = command.getValueForParamByPosition(0);
 		
-		if(newApplicationContext==null || newApplicationContext.length()<=0 || command.getArgumentsCount()<=0){
+		if(newApplicationContext==null || newApplicationContext.length()<=0 || command.getParameterCount()<=0){
 			CPConstants.fallToDefaultApplicationContext();
 			return CPConstants.getCommandContext();
 		}
