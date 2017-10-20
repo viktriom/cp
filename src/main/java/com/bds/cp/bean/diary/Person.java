@@ -2,7 +2,6 @@ package com.bds.cp.bean.diary;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import com.sonu.diary.util.DateUtils;
 
 import java.util.Date;
 
@@ -80,7 +79,7 @@ public class Person {
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
-        this.age = DateUtils.calculateAge(dateOfBirth);
+        //this.age = DateUtils.calculateAge(dateOfBirth);
     }
 
     public float getAge() {

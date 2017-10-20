@@ -32,7 +32,7 @@ public class CLCommandListener implements Runnable{
 	 * for the command on the command line. It keeps on listening continuously until the exit command is called.
 	 */
 	public void run(){
-		LogUtil.log(CLCommandListener.class, Level.INFO, "Listening..");
+		LogUtil.log(CLCommandListener.class, Level.INFO, "Enter command to execute..");
 		String className="";
 
 

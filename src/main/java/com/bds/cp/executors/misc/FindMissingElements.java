@@ -9,7 +9,8 @@ import com.vt.o2f.dataReader.FileDataReader;
 import com.vt.o2f.dataReader.FileDataStore;
 
 @ExecutableCommand(
-		commandDescription = "Compares two lists (read from a file) and finds the element present in list 2 but not in list one. The missing elements are marked with a blank line.", commandParams = {"l1","l2","op"}, 
+		commandDescription = "Compares two lists (read from a file) and finds the element present in list 2 but not in list one. The missing elements are marked with a blank line.", 
+		commandParams = {"l1","l2","op"}, 
 		commandParamsDescription = {"Name of the file from which to read the first list","Name of the file from which to read the second list", "Output File Name"},
 		commandParameterType = {"File", "File", "String"}
 )
