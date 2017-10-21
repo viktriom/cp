@@ -1,6 +1,5 @@
 package com.bds.cp.executors;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,6 +7,7 @@ import com.bds.cp.annotations.ExecutableCommand;
 import com.bds.cp.bean.Command;
 
 //GenComb -i a,b,c,d:i,j,k:p,q,r,s:w,x,y,z
+//GenComb -i 0,1,2,3,4,5,6,7,8,9:0,1,2,3,4,5,6,7,8,9:0,1,2,3,4,5,6,7,8,9:0,1,2,3,4,5,6,7,8,9
 @ExecutableCommand(commandDescription = "Generate Combinations, for given array of strings.", 
 commandParams = {"i"}, 
 commandParamsDescription = {"The string for which combination is to be generated."},
@@ -25,9 +25,8 @@ public class GenComb implements Executable {
 		int[] colCts = new int[rowCt];
 		int colCt = 0,row = 0,totalComb = 1;
 		
-		int[] indices = new int[rowCt]; 
-		String[] comb = new String[rowCt];
-		ArrayList<String> combs = new ArrayList();
+		/*Preparing input variable into a list*/
+		List<String> comb = new LinkedList<>();
 		for(String str : arr){
 			String[] s = str.split(",");
 			List<String> l = new LinkedList<String>();
@@ -36,37 +35,55 @@ public class GenComb implements Executable {
 			}
 			colCts[row] = l.size();
 			totalComb = totalComb * colCts[row];
-			indices[row] = 0;
-			comb[row] = l.get(0);
-			combs.add(row, l.get(0));
+			comb.add(row, l.get(0));
 			row++;
 			colCt = l.size()>colCt?l.size():colCt;
 			lst.add(l);
 		}
 		
+		return generateCombinations(lst).toString().replaceAll("], ", "]\n");
 		
-	System.out.println("colCt = " + colCt + ", rowCt = " + rowCt + ", total combinations: " + totalComb);
-		
-		for(int i =0;i < totalComb; i++){
-			int num =i, index = rowCt-1;
-			while(num != 0 && index <= rowCt){
-				indices[index] = num%colCts[index--];
-				num = num/colCt;
-			}
-			
-			System.out.print(i + "> ");
-			for(int r = 0;r < rowCt; r++){
-				System.out.print(indices[r] + lst.get(r).get(indices[r]) + ",");
-			}
-			System.out.println();			
-		}
-		System.out.println("The Command completed.");
-		return null;
 	}
 
 	@Override
 	public Command commandProcessor(String stringCommand) {
 		return null;
+	}
+	
+	public List<List<String>> generateCombinations(List<List<String>> lst){
+		
+		int rowCt = lst.size();
+		int[] colCts = new int[rowCt];
+		int rowIndex = 0,totalComb = 1;
+		List<String> comb = new LinkedList<>();
+		
+		for(List<String> row : lst){
+			colCts[rowIndex] = row.size();
+			totalComb = totalComb * colCts[rowIndex];
+			comb.add(rowIndex, row.get(0));
+			rowIndex++;
+		}
+		
+		System.out.println("colCt = " + colCts[rowIndex-1] + ", rowCt = " + rowCt + ", total combinations: " + totalComb);
+		
+		List<List<String>> combs = new LinkedList<>();
+		
+		for(int i =0;i < totalComb; i++){
+			int num =i, index = rowCt-1;
+			while(num != 0 && index >= 0){
+				int value = num%colCts[index];
+				comb.remove(index);
+				comb.add(index,lst.get(index).get(value));
+				num = num/colCts[index];
+				index--;
+			}
+			List<String> temp = new LinkedList<String>();
+			temp.addAll(comb);
+			combs.add(temp);
+		}
+		System.out.println(combs.toString().replaceAll("], ", "]\n"));
+		System.out.println("The Command completed.");
+		return combs;
 	}
 
 }
