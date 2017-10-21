@@ -1,5 +1,6 @@
 package com.bds.cp.executors;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,29 +23,29 @@ public class GenComb implements Executable {
 		String[] arr = input.split(":");
 		int rowCt = arr.length;
 		int[] colCts = new int[rowCt];
-		int colCt = 0,row = 0;
+		int colCt = 0,row = 0,totalComb = 1;
+		
+		int[] indices = new int[rowCt]; 
+		String[] comb = new String[rowCt];
+		ArrayList<String> combs = new ArrayList();
 		for(String str : arr){
 			String[] s = str.split(",");
 			List<String> l = new LinkedList<String>();
 			for(String st : s){
 				l.add(st);
 			}
-			colCts[row++] = l.size();
+			colCts[row] = l.size();
+			totalComb = totalComb * colCts[row];
+			indices[row] = 0;
+			comb[row] = l.get(0);
+			combs.add(row, l.get(0));
+			row++;
 			colCt = l.size()>colCt?l.size():colCt;
 			lst.add(l);
 		}
-		int totalComb = 1;
-		for(int i = 0;i < rowCt; i++){
-			totalComb = totalComb * colCts[i];
-		}
 		
 		
-		System.out.println("colCt = " + colCt + ", rowCt = " + rowCt + ", total combinations: " + totalComb);
-		
-		int[] indices = new int[rowCt]; 
-		for(int r = 0;r < rowCt; r++){
-			indices[r] = 0;
-		}
+	System.out.println("colCt = " + colCt + ", rowCt = " + rowCt + ", total combinations: " + totalComb);
 		
 		for(int i =0;i < totalComb; i++){
 			int num =i, index = rowCt-1;
@@ -55,8 +56,7 @@ public class GenComb implements Executable {
 			
 			System.out.print(i + "> ");
 			for(int r = 0;r < rowCt; r++){
-				System.out.print(lst.get(r).get(indices[r]) + ",");
-				
+				System.out.print(indices[r] + lst.get(r).get(indices[r]) + ",");
 			}
 			System.out.println();			
 		}
