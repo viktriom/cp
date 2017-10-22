@@ -66,5 +66,13 @@ public class CPUtilTest {
     public void obtainParametersForCommand() throws Exception {
 
     }
+    
+    @org.junit.Test
+    public void  getNumericPortionFromString(String string){
+    	String str = "1234ay";
+    	int num = CPUtil.extractNumericPortionFromString(str);
+    	assertEquals(1234, num);
+    	
+    }
 
 }

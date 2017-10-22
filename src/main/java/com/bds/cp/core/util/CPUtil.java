@@ -168,6 +168,24 @@ public class CPUtil {
         return normalString;
 	}
 	
+	public static int extractNumericPortionFromString(String string){
+		StringBuilder sb = new StringBuilder();
+		for(char ch : string.toCharArray()){
+			if(Character.isDigit(ch))
+				sb.append(ch);
+		}
+		return isConvertibleToInt(sb.toString())?Integer.parseInt(sb.toString()):null;
+	}
+	
+	public static String extractNonNumericPortionFromString(String string){
+		StringBuilder sb = new StringBuilder();
+		for(char ch : string.toCharArray()){
+			if(!Character.isDigit(ch))
+				sb.append(ch);
+		}
+		return sb.toString();
+	}
+	
 	public static Command parseCommand(String command){
 		Command cmd=new Command();
 		/*LogUtil.log(CPUtil.class, Level.INFO, "Command parsed by Util.parseCommand().");
@@ -307,9 +325,10 @@ public class CPUtil {
 
 
     /**
-     * This interface defines a event based command processing.
+     * Converts a simple command string into a command object (with command and parameter attributes populated.
      * When called it processes a single command at a time.
-     * @param command - The string form of the command to be processed in the format [CommandName -<paramList> <valueList>]
+     * @param command - The string form of the command to be processed. The format of the the command entered should be 
+     * [CommandName -<paramList> <valueList>]
      * (ex: CommandName -param1.param2.param3 value1 value2 value3).
      */
 	public static String executeCommand(String command){

@@ -4,12 +4,10 @@ import com.bds.cp.core.constants.CPConstants;
 import com.bds.cp.core.constants.CommandProcessingMode;
 import com.bds.cp.core.listener.CLCommandListener;
 import com.bds.cp.core.network.Server;
-import com.bds.cp.core.util.CPUtil;
 import com.bds.cp.core.util.LogUtil;
 import com.bds.cp.core.util.CPStartupUtil;
 
 import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 
 import java.io.IOException;
 

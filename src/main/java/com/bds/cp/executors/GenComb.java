@@ -41,7 +41,12 @@ public class GenComb implements Executable {
 			lst.add(l);
 		}
 		
-		return generateCombinations(lst).toString().replaceAll("], ", "]\n");
+		List<List<String>> combs = generateCombinations(lst);
+		
+		System.out.println(combs.toString());
+		System.out.println("The Command completed.");
+		
+		return combs.toString().replaceAll("], ", "]\n");
 		
 	}
 
@@ -81,8 +86,6 @@ public class GenComb implements Executable {
 			temp.addAll(comb);
 			combs.add(temp);
 		}
-		System.out.println(combs.toString().replaceAll("], ", "]\n"));
-		System.out.println("The Command completed.");
 		return combs;
 	}
 
