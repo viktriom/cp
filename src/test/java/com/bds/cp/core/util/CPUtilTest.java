@@ -68,7 +68,7 @@ public class CPUtilTest {
     }
     
     @org.junit.Test
-    public void  getNumericPortionFromString(String string){
+    public void  getNumericPortionFromString(){
     	String str = "1234ay";
     	int num = CPUtil.extractNumericPortionFromString(str);
     	assertEquals(1234, num);

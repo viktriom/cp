@@ -18,6 +18,13 @@ public class CPConstants {
 	private static String dotTokenSeparator;
 	private static String paramNameIndicator;
 	private static String contextLocation;
+	private static String dbUrl;
+	private static String dbHost;
+	private static String dbPort;
+	private static String dbName;
+	private static String dbUser;
+	private static String dbPassword;
+	private static String jdbcDBDriver;
 	
 	public static void setComandContext(String commandContext){	
 		if(commandContext == null || commandContext.length()<=0){
@@ -46,8 +53,7 @@ public class CPConstants {
 	}
 	
 	public static void fallToDefaultApplicationContext(){
-		CPConstants.commandContext = initialCommandContext;
-		
+		CPConstants.commandContext = initialCommandContext;		
 		LogUtil.log(CPConstants.class, Level.INFO, "The new application context is : " + CPConstants.commandContext);
 	}
 	
@@ -126,5 +132,67 @@ public class CPConstants {
 
 	public static void setContextLocation(String contextLocation) {
 		CPConstants.contextLocation = contextLocation;
-	}	
+	}
+
+	public static String getDbUrl() {
+		return dbUrl;
+	}
+
+	public static void setDbUrl(String dbUrl) {
+		CPConstants.dbUrl = dbUrl;
+	}
+
+	public static String getDbHost() {
+		return dbHost;
+	}
+
+	public static void setDbHost(String dbHost) {
+		CPConstants.dbHost = dbHost;
+	}
+
+	public static String getDbPort() {
+		return dbPort;
+	}
+
+	public static void setDbPort(String dbPort) {
+		CPConstants.dbPort = dbPort;
+	}
+
+	public static String getDbUser() {
+		return dbUser;
+	}
+
+	public static void setDbUser(String dbUser) {
+		CPConstants.dbUser = dbUser;
+	}
+
+	public static String getDbPassword() {
+		return dbPassword;
+	}
+
+	public static void setDbPassword(String dbPassword) {
+		CPConstants.dbPassword = dbPassword;
+	}		
+	
+	public static String getDbName() {
+		return dbName;
+	}
+
+	public static void setDbName(String dbName) {
+		CPConstants.dbName = dbName;
+	}
+	
+	public static String getJdbcDBDriver() {
+		return jdbcDBDriver;
+	}
+
+	public static void setJdbcDBDriver(String jdbcDBDriver) {
+		CPConstants.jdbcDBDriver = jdbcDBDriver;
+	}
+
+	public static String getCompleteDBUrl(){
+		String completeDBUrl = "";
+		completeDBUrl = dbUrl + dbHost + ":" + dbPort + "/" + dbName;
+		return completeDBUrl;
+	}
 }

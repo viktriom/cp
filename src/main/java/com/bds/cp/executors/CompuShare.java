@@ -10,7 +10,7 @@ import com.bds.cp.bean.Command;
 import com.bds.cp.core.util.CPUtil;
 import com.bds.cp.core.util.LogUtil;
 
-//CompuShare -i.n 100ary:50vt:200amy:90vs "ary=Arun Yadav:vt=Vivek Tripathi:amy=Amar Yashpal:vs=Vikas Singh"
+//CompuShare -i.n 100ary:50vt:200amy:90vs:200amy:100vt:110vs:200ary "ary=Arun Yadav:vt=Vivek Tripathi:amy=Amar Yashpal:vs=Vikas Singh"
 @ExecutableCommand(commandDescription = "Given amount spend be individula of a group, the command computes the share to be paid by each member to each member.", 
 commandParams = {"i"}, 
 commandParamsDescription = {"The string containing the information about the amount paid by each individual."},
@@ -30,6 +30,7 @@ public class CompuShare implements Executable {
 			System.out.println(amt);
 			String name = CPUtil.extractNonNumericPortionFromString(str);
 			System.out.println(name);
+			expMap.put(name, amt);
 		}
 		
 		LogUtil.log(this.getClass(), Level.INFO, "Share Computation completed.");
