@@ -43,7 +43,7 @@ public class GenComb implements Executable {
 		
 		List<List<String>> combs = generateCombinations(lst);
 		
-		System.out.println(combs.toString());
+		System.out.println(combs.toString().replaceAll(", ", "").replaceAll("]", "\n").replaceAll("\\[",""));
 		System.out.println("The Command completed.");
 		
 		return combs.toString().replaceAll("], ", "]\n");

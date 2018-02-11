@@ -22,7 +22,7 @@ public class Main {
 			Thread t = new Thread(new CLCommandListener());
 			t.start();
 		}else if(CPConstants.getCommandProcessingMode() == CommandProcessingMode.NETWORK) {
-			LogUtil.log(Main.class, Level.INFO, "Application is configured to run in " + CommandProcessingMode.NETWORK.name() + ", mode, network mode stating now.");
+			LogUtil.log(Main.class, Level.INFO, "Application is configured to run in " + CommandProcessingMode.NETWORK.name() + " mode, network mode stating now.");
 			try {
 				Thread srvr = new Server(CPConstants.getNetworkListenerPort());
 				srvr.start();

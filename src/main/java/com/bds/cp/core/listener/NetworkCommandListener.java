@@ -28,7 +28,7 @@ public class NetworkCommandListener extends Thread{
     }
 
     public void run(){
-    	LogUtil.log(NetworkCommandListener.class, Level.INFO, "NetworkCommandListener with ID : " + String.valueOf(id) + "running.");
+    	LogUtil.log(NetworkCommandListener.class, Level.INFO, "NetworkCommandListener with ID : " + String.valueOf(id) + " running.");
         while(true){
             try{
                 String message = in.readUTF();
